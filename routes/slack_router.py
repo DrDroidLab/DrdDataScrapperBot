@@ -21,7 +21,7 @@ def install():
     user_email = request.args.get('user_email', None)
     state = json.dumps({'user_email': user_email})
     return redirect(
-        f'https://slack.com/oauth/v2/authorize?client_id={SLACK_CLIENT_ID}&scope=app_mentions:read,channels:history,channels:read,chat:write,commands,groups:history,groups:read,mpim:read&user_scope=&redirect_uri={SLACK_REDIRECT_URI}&state={state}')
+        f'https://slack.com/oauth/v2/authorize?client_id={SLACK_CLIENT_ID}&scope=app_mentions:read,channels:history,channels:read,chat:write,commands,groups:history,groups:read,mpim:read,files:write&user_scope=&redirect_uri={SLACK_REDIRECT_URI}&state={state}')
 
 
 @slack_blueprint.route('/oauth_redirect', methods=['GET'])
@@ -79,3 +79,4 @@ def handle_slack_events():
             logger.error(f"Error while fetching bot OAuth token with response: {data}")
             return jsonify({'success': False, 'message': 'Alert Summary Bot Event Handling failed'})
     return jsonify({'success': False, 'message': 'Alert Summary Bot Event Handling failed'})
+
