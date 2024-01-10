@@ -2,7 +2,7 @@ import json
 import uuid
 from datetime import datetime
 
-from flask import request
+from flask import request, session
 from flask import jsonify, Blueprint
 
 from jobs.tasks import data_fetch_job
@@ -217,3 +217,10 @@ def new_relic_fetch_alert_violations():
     if data_fetch_success:
         return jsonify({'success': True})
     return jsonify({'success': False, 'message': 'Failed to fetch alert violations'})
+
+
+@app_blueprint.route('/clear_session')
+def clear_session():
+    # Clear the session
+    session.clear()
+    return 'Session cleared!'
